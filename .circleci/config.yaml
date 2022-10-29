@@ -1,0 +1,58 @@
+version: 2.1
+
+# Define the jobs we want to run for this project
+jobs:
+  build:
+    docker:
+      - image: circleci/node:13.8.0 
+    steps:
+      - checkout
+  build-docker:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build docker containers for mocroservices
+          command:
+            echo "-------Installing dependencies---------"
+            sudo curl -L0 https://nodejs.org/dist/v18.0.0/node-v18.0.0-linux-x64.tar-xz
+            sud tar -xvf node-v18.0.0-linux-x64.tar.xz
+            sudo cp -r node-v18.0.0-Linux-x64/(bin, include, Lib, share) /usr/
+            node - version a v18.0.0
+            sudo apt install nodejs
+
+            echo "--------Building Images -------------"
+
+            docker build -t udagram-api-feed ./udagram-api-feed
+            docker tag udagram-api-feed loiswakili/udagram-api-feed:v5
+
+            docker build -t udagram-api-user ./udagram-api-user
+            docker tag udagram-api-user loiswakili/udagram-api-user:v5     
+
+            docker build -t udagram-frontend ./udagram-frontend
+            docker tag udagram-frontend loiswakili/udagram-frontend:v5
+
+            docker build -t udagram-reverseproxy ./udagram-reverseproxy
+            docker tag udagram-reverseproxy loiswakili/udagram-reverseproxy:v5                  
+
+            echo "--------Images successfully built--------"
+
+            docker login -u loiswakili -p Chocolate12
+
+            echo "----------pushing images to dockerhub------------"
+
+            docker push loiswakili/udagram-api-feed:v5
+            docker push loiswakili/udagram-api-user:v5
+            docker push loiswakili/udagram-frontend:v5
+            docker push loiswakili/udagram-reverseproxy:v5
+
+ 
+
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - build-docker
+          requires:
+            - build
