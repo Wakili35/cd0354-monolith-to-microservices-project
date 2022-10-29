@@ -54,5 +54,4 @@ workflows:
     jobs:
       - build
       - build-docker
-          requires:
-            - build
+          requires: [build]
