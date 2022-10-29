@@ -11,10 +11,6 @@ import {V0_FEED_MODELS} from './controllers/v0/model.index';
 
 (async () => {
   await sequelize.addModels(V0_FEED_MODELS);
-<<<<<<< HEAD:udagram-api-feed/src/server.ts
-
-=======
->>>>>>> 90702b3a3c6da43865960255e40048e3b8dd93a6:udagram-api/src/server.ts
 
   console.debug("Initialize database connection...");
   await sequelize.sync();
