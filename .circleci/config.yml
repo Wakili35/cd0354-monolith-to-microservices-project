@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: Build docker containers for mocroservices
-          command:
+          command: | 
             echo "-------Installing dependencies---------"
             sudo curl -L0 https://nodejs.org/dist/v18.0.0/node-v18.0.0-linux-x64.tar-xz
             sud tar -xvf node-v18.0.0-linux-x64.tar.xz
