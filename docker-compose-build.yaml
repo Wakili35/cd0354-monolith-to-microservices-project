@@ -15,9 +15,4 @@ services:
   frontend:
     build:
       context: ./udagram-frontend
-<<<<<<< HEAD
     image: udagram-frontend:local
-=======
-    image: udagram-frontend:local
-    
->>>>>>> 90702b3a3c6da43865960255e40048e3b8dd93a6
